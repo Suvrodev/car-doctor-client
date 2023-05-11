@@ -55,7 +55,7 @@ const SignUp = () => {
                       <span className="label-text">Photo url</span>
                   </label>
                   <input
-                      type="text"
+                      type="url"
                       placeholder="Photo url"
                       className="input input-bordered"
                       name="photo"

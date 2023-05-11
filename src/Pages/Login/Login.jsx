@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import loginImage from '../../../src/assets/images/login/login.svg'
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
 
-    const {SignInByMail}=useContext(AuthContext)
+    const {SignInByMail,GoogleLogin}=useContext(AuthContext)
 
     const handleLogin=(event)=>{
         event.preventDefault();
@@ -24,6 +25,18 @@ const Login = () => {
         console.log(error.message)
        })
     }
+
+    const handleLoginGoogle=()=>{
+       GoogleLogin()
+       .then(result=>{
+        const loggedUser=result.user;
+        console.log("Google")
+        console.log(loggedUser)
+       })
+       .catch(error=>{
+        console.log(error.message)
+       })
+     }
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row gap-32 bg-red-500">
@@ -66,6 +79,10 @@ const Login = () => {
                 <input type="submit" className="btn btn-primary" value="Login" />
                 </div>
            </form>
+           <div className="flex items-center justify-center flex-col gap-5">
+            <p className="font-bold">Or Sign up With</p>
+            <button onClick={handleLoginGoogle} className="btn text-yellow-300"> <FaGoogle/> </button>
+           </div>
            <p className="text-center my-4">New to Car-Doctors? <Link to='/signup' className="font-bold text-orange-500">Sign Up</Link> </p>
           </div>
         </div>
