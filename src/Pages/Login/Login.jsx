@@ -1,10 +1,18 @@
 import React, { useContext } from "react";
 import loginImage from '../../../src/assets/images/login/login.svg'
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
+
+    const navigate=useNavigate();
+    const loc=useLocation()
+   // console.log(loc)
+    const from= loc.state?.from?.pathname || '/';
+   // console.log(from)
+
+    
 
     const {SignInByMail,GoogleLogin}=useContext(AuthContext)
 
@@ -32,6 +40,26 @@ const Login = () => {
         const loggedUser=result.user;
         console.log("Google")
         console.log(loggedUser)
+        const loginUser={
+          email: loggedUser.email
+        }
+        console.log(loginUser)
+
+        fetch('http://localhost:5000/jwt',{
+          method: 'POST',
+          headers: {
+            'content-type':'application/json' 
+          },
+          body: JSON.stringify(loginUser)
+          
+        })
+        .then(res=>res.json())
+        .then(data=>{
+          console.log('JWT Response: ',data)
+          ///warning : Local storage is not best place
+          localStorage.setItem('car-access-token',data.token)
+        })
+       navigate(from, {replace: true} )
        })
        .catch(error=>{
         console.log(error.message)
