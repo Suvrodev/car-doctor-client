@@ -11,7 +11,7 @@ const CheckOut = () => {
   const [service, setService] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services/${id}`)
+    fetch(`https://car-doctor-server-tan-nine.vercel.app/services/${id}`)
       .then((res) => res.json())
       .then((data) => setService(data));
   }, []);
@@ -46,7 +46,7 @@ const CheckOut = () => {
     }
 
     console.log(booking)
-    fetch(`http://localhost:5000/bookings/`,{
+    fetch(`https://car-doctor-server-tan-nine.vercel.app/bookings/`,{
         method: 'POST',
         headers: {
             'content-type': 'application/json'

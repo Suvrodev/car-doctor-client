@@ -49,6 +49,30 @@ const AuthProvider = ({children}) => {
             setUser(currentUser)
           //  console.log("Current User: ",currentUser)
             setLoading(false)
+
+            if(currentUser && currentUser.email){
+
+                const loginUser={
+                    email: currentUser.email
+                }
+
+                fetch('https://car-doctor-server-tan-nine.vercel.app/jwt',{
+                    method: 'POST',
+                    headers: {
+                      'content-type':'application/json' 
+                    },
+                    body: JSON.stringify(loginUser)
+                    
+                  })
+                  .then(res=>res.json())
+                  .then(data=>{
+                    console.log('JWT Response: ',data)
+                    ///warning : Local storage is not best place
+                    localStorage.setItem('car-access-token',data.token)
+                  })
+            }else{
+                localStorage.removeItem('car-access-token')
+            }
         })
 
         return ()=>{
