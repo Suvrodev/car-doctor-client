@@ -37,32 +37,16 @@ const Login = () => {
     const handleLoginGoogle=()=>{
        GoogleLogin()
        .then(result=>{
-        const loggedUser=result.user;
-        console.log("Google")
-        console.log(loggedUser)
-        const loginUser={
-          email: loggedUser.email
-        }
-        console.log(loginUser)
+          const loggedUser=result.user;
+          console.log("Google")
+          console.log(loggedUser)
+      
+         // console.log(loginUser)
+          navigate(from, {replace: true} )
 
-        fetch('http://localhost:5000/jwt',{
-          method: 'POST',
-          headers: {
-            'content-type':'application/json' 
-          },
-          body: JSON.stringify(loginUser)
-          
-        })
-        .then(res=>res.json())
-        .then(data=>{
-          console.log('JWT Response: ',data)
-          ///warning : Local storage is not best place
-          localStorage.setItem('car-access-token',data.token)
-        })
-       navigate(from, {replace: true} )
        })
        .catch(error=>{
-        console.log(error.message)
+         console.log(error.message)
        })
      }
   return (

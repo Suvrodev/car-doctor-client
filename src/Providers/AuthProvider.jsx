@@ -66,7 +66,7 @@ const AuthProvider = ({children}) => {
                   })
                   .then(res=>res.json())
                   .then(data=>{
-                    console.log('JWT Response: ',data)
+                   // console.log('JWT Response: ',data)
                     ///warning : Local storage is not best place
                     localStorage.setItem('car-access-token',data.token)
                   })
